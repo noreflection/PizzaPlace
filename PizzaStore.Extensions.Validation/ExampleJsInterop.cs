@@ -1,7 +1,7 @@
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace PizzaStore.Extensions.Velidation
+namespace PizzaStore.Extensions.Validation
 {
     public class ExampleJsInterop
     {

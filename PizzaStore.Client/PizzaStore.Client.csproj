@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PizzaStore.Shared\PizzaStore.Shared.csproj" />
     <ProjectReference Include="..\PizzaStore.Components\PizzaStore.Components.csproj" />
+    <ProjectReference Include="..\PizzaStore.Extensions.Validation\PizzaStore.Extensions.Validation.csproj" />
   </ItemGroup>
 
 </Project>
