@@ -1,0 +1,19 @@
+@using PizzaStore.Shared
+
+
+<h1>@Title</h1>
+@foreach (var pizza in Menu.Pizzas)
+{
+    <PizzaItem Pizza="@pizza" ButtonTitle="Order"
+               ButtonClass="btn btn-success"
+               Selected="@(p => Selected(p))"></PizzaItem>
+}
+
+@functions {
+    [Parameter]
+    private string Title { get; set; }
+    [Parameter]
+    private Menu Menu { get; set; }
+    [Parameter]
+    private Action<Pizza> Selected { get; set; }
+}

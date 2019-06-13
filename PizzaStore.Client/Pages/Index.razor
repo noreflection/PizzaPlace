@@ -3,73 +3,30 @@
 @using PizzaStore.Client.Pages
 
 <!-- Menu -->
-<h1 xmlns="http://www.w3.org/1999/html">Our selection of pizzas</h1>
+<h1>Our selection of pizzas</h1>
 
-<DismissableAlert Show="@ShowAlert">
-    <span class="oi oi-check mr-2" aria-hidden="true"></span>
-    <strong>Blazor is soo cool!</strong>
-</DismissableAlert>
+@* <DismissableAlert Show="@ShowAlert"> *@
+@*     <span class="oi oi-check mr-2" aria-hidden="true"></span> *@
+@*     <strong>Blazor is soo cool!</strong> *@
+@* </DismissableAlert> *@
+@* *@
+@* <button class="btn btn-default" onclick="@ToggleAlert"> *@
+@*      Toggle *@
+@* </button> *@
+@* *@
+@* <Timer TimeInSeconds="5" Tick="@DismissAlert"></Timer> *@
 
-<button class="btn btn-default" onclick="@ToggleAlert">
-     Toggle
-</button>
-
-<Timer TimeInSeconds="5" Tick="@DismissAlert" />
-
-@foreach (var pizza in State.Menu.Pizzas)
-{
-    <div class="row">
-        <div class="col">
-            @pizza.Name
-        </div>
-
-        <div class="col">
-            @pizza.Price
-        </div>
-
-        <div class="col">
-            <img src="@SpicinessImage(pizza.Spiciness)"
-                 alt="@pizza.Spiciness" />
-        </div>
-
-        <div class="col">
-            <button class="btn btn-success"
-                    onclick="@(() => AddToBasket(pizza))">
-                Add
-            </button>
-        </div>
-    </div>
-}
+ <PizzaList Title="Our selected list of pizzas"
+            Menu="@State.Menu"
+            Selected="@(pizza =>AddToBasket(pizza))">
+</PizzaList>
 <!-- end Menu -->
+
 <!-- Shopping Basket-->
-@if (State.Basket.Orders.Any())
-{
-    <h1>Your current order</h1>
-    @foreach (var (pizza, pos) in State.Basket.Orders.Select((id, pos) => (State.Menu.GetPizza(id), pos)))
-    {
-        <div class="row">
-            <div class="col">
-                @pizza.Name
-            </div>
-
-            <div class="col">
-                @pizza.Price
-            </div>
-
-            <div class="col">
-                <button class="btn btn-danger"
-                        onclick="@(() => RemoveFromBasket(pos))">
-                    Remove
-                </button>
-            </div>
-        </div>
-    }
-    <div class="row">
-        <div class="col"> Total:</div>
-        <div class="col"> @State.TotalPrice</div>
-        <div class="col"> </div>
-    </div>
-}
+<ShoppingBasket Title="Your current order"
+                Basket="@State.Basket"
+                GetPizzaFromId="@State.Menu.GetPizza"
+                Selected="@(pos => RemoveFromBasket(pos))"></ShoppingBasket>
 <!-- end Shopping Basket-->
 
 <!-- Customer Entry-->

@@ -1,0 +1,44 @@
+@using PizzaStore.Shared
+
+@if (Basket.Orders.Any())
+{
+    <h1>@Title</h1>
+@foreach (var (pizza, pos) in Pizzas)
+ {
+     <PizzaItem Pizza="@pizza" ButtonClass="btn btn-danger"
+                ButtonTitle="Remove"
+                Selected="@(p => Selected(pos))">
+     </PizzaItem>
+ }
+    <div class="row">
+    <div class="col"> Total: </div>
+    <div class="col"> @TotalPrice </div>
+    <div class="col"> </div>
+        <div class="col"> </div>
+    </div>
+}
+@functions {
+    [Parameter]
+    private string Title { get; set; }
+    
+    [Parameter]
+    private Basket Basket { get; set; }
+    
+    [Parameter]
+    private Func<int, Pizza> GetPizzaFromId { get; set; }
+    
+    [Parameter]
+    private Action<int> Selected { get; set; }
+
+    private IEnumerable<(Pizza pizza, int pos)> Pizzas { get; set; }
+
+    private decimal TotalPrice { get; set; }
+    
+    protected override void OnParametersSet ()
+    {
+        base.OnParametersSet ();
+        Pizzas = Basket.Orders.Select((id, pos) => (pizza: GetPizzaFromId(id),
+            pos: pos));
+        TotalPrice = Pizzas.Select(tuple => tuple.pizza.Price).Sum();
+    }
+}

@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Shared", "PizzaS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Components", "PizzaStore.Components\PizzaStore.Components.csproj", "{CBB0FCF1-AC4D-4918-AE08-4B78000FCDFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Extensions.Velidation", "PizzaStore.Extensions.Velidation\PizzaStore.Extensions.Velidation.csproj", "{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,18 @@ Global
 		{CBB0FCF1-AC4D-4918-AE08-4B78000FCDFE}.Release|x64.Build.0 = Release|Any CPU
 		{CBB0FCF1-AC4D-4918-AE08-4B78000FCDFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBB0FCF1-AC4D-4918-AE08-4B78000FCDFE}.Release|x86.Build.0 = Release|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Release|x64.Build.0 = Release|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{1F0BD369-8C53-4889-A64E-C3C96B4ED0AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

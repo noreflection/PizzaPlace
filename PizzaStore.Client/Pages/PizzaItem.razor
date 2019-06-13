@@ -1,0 +1,37 @@
+
+@using PizzaStore.Shared
+
+<div class="row">
+    <div class="col">
+        @Pizza.Name
+    </div>
+    <div class="col">
+        @Pizza.Price
+    </div>
+    <div class="col">
+        <img src="@SpicinessImage(Pizza.Spiciness)"
+             alt="@Pizza.Spiciness" />
+    </div>
+    <div class="col">
+        <button class="@ButtonClass"
+                onclick="@(() => Selected(Pizza))">@ButtonTitle</button>
+    </div>
+</div>
+
+
+@functions {
+    [Parameter]
+    private Pizza Pizza { get; set; }
+    
+    [Parameter]
+    private string ButtonTitle { get; set; } //rel1 enums
+    
+    [Parameter]
+    private string ButtonClass { get; set; } //rel2
+    
+    [Parameter]
+    private Action<Pizza> Selected { get; set; }
+    
+    private string SpicinessImage(Spiciness spiciness)
+        => $"images/{spiciness.ToString().ToLower()}.png";
+}

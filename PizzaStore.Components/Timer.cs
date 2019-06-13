@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace PizzaStore.Client.Pages
+namespace PizzaStore.Components
 {
     public class Timer : ComponentBase
     {
