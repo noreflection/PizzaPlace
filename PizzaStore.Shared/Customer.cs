@@ -11,6 +11,8 @@ namespace PizzaStore.Shared
         public string Street { get; set; }
         public string City { get; set; }
 
+        // public string Origin 
+
         public bool HasErrors => GetErrors(string.Empty).Any();
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -23,26 +25,26 @@ namespace PizzaStore.Shared
                 {
                     yield return $"A customer's name is mandatory";
                 }
-                
+
                 else if (Name.Contains("Pizza"))
                 {
                     yield return $"Name should not contain \"Pizza\"";
                 }
+            }
 
-                if (string.IsNullOrEmpty(propertyName) || propertyName == nameof(Street))
+            else if (string.IsNullOrEmpty(propertyName) || propertyName == nameof(Street))
+            {
+                if (string.IsNullOrEmpty(Street))
                 {
-                    if (string.IsNullOrEmpty(Street))
-                    {
-                        yield return $"{propertyName} is mandatory";
-                    }
+                    yield return $"{propertyName} is mandatory";
                 }
+            }
 
-                if (string.IsNullOrEmpty(propertyName) || propertyName == nameof(City))
+            else if (string.IsNullOrEmpty(propertyName) || propertyName == nameof(City))
+            {
+                if (string.IsNullOrEmpty(City))
                 {
-                    if (string.IsNullOrEmpty(City))
-                    {
-                        yield return $"{propertyName} is mandatory";
-                    }
+                    yield return $"{propertyName} is mandatory";
                 }
             }
         }
