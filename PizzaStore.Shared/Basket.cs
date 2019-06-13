@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PizzaStore.Shared
 {
@@ -10,6 +11,7 @@ namespace PizzaStore.Shared
 
         public void Add(int pizzaId)
         {
+            Console.WriteLine($"adding {pizzaId} to the card");
             Orders.Add(pizzaId);
         }
 

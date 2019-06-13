@@ -1,8 +1,18 @@
 ﻿@page "/"
 @using PizzaStore.Shared
+@using PizzaStore.Client.Pages
 
 <!-- Menu -->
 <h1 xmlns="http://www.w3.org/1999/html">Our selection of pizzas</h1>
+
+<DismissableAlert Show="@ShowAlert">
+    <span class="oi oi-check mr-2" aria-hidden="true"></span>
+    <strong>Blazor is soo cool!</strong>
+</DismissableAlert>
+
+<button class="btn btn-default" onclick="@ToggleAlert">
+     Toggle
+</button>
 
 @foreach (var pizza in State.Menu.Pizzas)
 {
@@ -61,57 +71,55 @@
 <!-- end Shopping Basket-->
 
 <!-- Customer Entry-->
-<h1>Please enter your 111details below</h1>
+<h1>Please enter your details below</h1>
 <fieldset>
     <p>
 
         <label for="name">Name:</label>
         <input id="name" bind="@State.Basket.Customer.Name"/>
-        @if(State.Basket.Customer
-                    .GetErrors(nameof(Customer.Name))
-                    .Any())
-                {
-                    <ul class="validation-error">
-                        @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Name)))
-                        {
-                            <li>@error</li>
-                        }
-                    </ul>
-                }
+@*          *@
+@*                     .GetErrors(nameof(Customer.Name)) *@
+@*                     .Any()) *@
+@*                 { *@
+@*                     <ul class="validation-error"> *@
+@*                         @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Name))) *@
+@*                         { *@
+@*                             <li>@error</li> *@
+@*                         } *@
+@*                     </ul> *@
+@*                 } *@
     </p>
 
     <p>
         <label for="street">Street:</label>
         <input  id="street" bind="@State.Basket.Customer.Street" />
-
-
-        @if(State.Basket.Customer
-                    .GetErrors(nameof(Customer.Street))
-                    .Any())
-                {
-                    <ul class="validation-error">
-                        @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Street)))
-                        {
-                            <li>@error</li>
-                        }
-                    </ul>
-                }
+@*         @if(State.Basket.Customer *@
+@*                     .GetErrors(nameof(Customer.Street)) *@
+@*                     .Any()) *@
+@*                 { *@
+@*                     <ul class="validation-error"> *@
+@*                         @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Street))) *@
+@*                         { *@
+@*                             <li>@error</li> *@
+@*                         } *@
+@*                     </ul> *@
+@*                 } *@
     </p>
 
     <p>
         <label for="city">City:</label>
         <input id="city" bind="@State.Basket.Customer.City" />
-        @if(State.Basket.Customer
-                    .GetErrors(nameof(Customer.City))
-                    .Any())
-                {
-                    <ul class="validation-error">
-                        @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.City)))
-                        {
-                            <li>@error</li>
-                        }
-                    </ul>
-                }
+@*         @if(State.Basket.Customer *@
+@*                     .GetErrors(nameof(Customer.City)) *@
+@*                     .Any()) *@
+@*                 { *@
+@*                     <ul class="validation-error"> *@
+@*                         @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.City))) *@
+@*                         { *@
+@*                             <li>@error</li> *@
+@*                         } *@
+@*                     </ul> *@
+@*                 } *@
     </p>
 
     <button onclick="@PlaceOrder" disabled="@State.Basket.Customer.HasErrors">Checkout</button>
@@ -124,6 +132,14 @@
 
 @functions
 {
+    public bool ShowAlert { get; set; } = true;
+
+    public void ToggleAlert()
+    {
+        ShowAlert = !ShowAlert;
+    }
+    
+    
     private State State { get; } = new State
     {
         Menu = new Menu
@@ -134,14 +150,7 @@
                 new Pizza(2, "Margarita", 7.99M, Spiciness.None),
                 new Pizza(3, "Diablo", 9.99M, Spiciness.Hot)
             }
-        },
-        //Basket = new Basket
-        //{
-        //    Orders = new List<int>
-        //    {
-        //        1
-        //    }
-        //}
+        }
     };
 
     private string SpicinessImage(Spiciness spiciness) =>
@@ -151,12 +160,14 @@
     {
         Console.WriteLine($"Added pizza {pizza.Name}");
         State.Basket.Add(pizza.Id);
+        base.StateHasChanged();
     }
 
     private void RemoveFromBasket(int pos)
     {
         Console.WriteLine($"Removing pizza at position {pos}");
         State.Basket.RemoveAt(pos);
+        StateHasChanged();
     }
 
     private void PlaceOrder()
