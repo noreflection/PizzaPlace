@@ -1,89 +1,23 @@
 ﻿@page "/"
 @using PizzaStore.Shared
-@using PizzaStore.Client.Pages
 
 <!-- Menu -->
-<h1>Our selection of pizzas</h1>
-
-@* <DismissableAlert Show="@ShowAlert"> *@
-@*     <span class="oi oi-check mr-2" aria-hidden="true"></span> *@
-@*     <strong>Blazor is soo cool!</strong> *@
-@* </DismissableAlert> *@
-@* *@
-@* <button class="btn btn-default" onclick="@ToggleAlert"> *@
-@*      Toggle *@
-@* </button> *@
-@* *@
-@* <Timer TimeInSeconds="5" Tick="@DismissAlert"></Timer> *@
-
  <PizzaList Title="Our selected list of pizzas"
             Menu="@State.Menu"
-            Selected="@(pizza =>AddToBasket(pizza))">
-</PizzaList>
+            Selected="@(pizza =>AddToBasket(pizza))" />
 <!-- end Menu -->
 
 <!-- Shopping Basket-->
 <ShoppingBasket Title="Your current order"
                 Basket="@State.Basket"
                 GetPizzaFromId="@State.Menu.GetPizza"
-                Selected="@(pos => RemoveFromBasket(pos))"></ShoppingBasket>
+                Selected="@(pos => RemoveFromBasket(pos))" />
 <!-- end Shopping Basket-->
 
 <!-- Customer Entry-->
-<h1>Please enter your details below</h1>
-<fieldset>
-    <p>
-
-        <label for="name">Name:</label>
-        <input id="name" bind="@State.Basket.Customer.Name"/>
-@*          *@
-@*                     .GetErrors(nameof(Customer.Name)) *@
-@*                     .Any()) *@
-@*                 { *@
-@*                     <ul class="validation-error"> *@
-@*                         @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Name))) *@
-@*                         { *@
-@*                             <li>@error</li> *@
-@*                         } *@
-@*                     </ul> *@
-@*                 } *@
-    </p>
-
-    <p>
-        <label for="street">Street:</label>
-        <input  id="street" bind="@State.Basket.Customer.Street" />
-@*         @if(State.Basket.Customer *@
-@*                     .GetErrors(nameof(Customer.Street)) *@
-@*                     .Any()) *@
-@*                 { *@
-@*                     <ul class="validation-error"> *@
-@*                         @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.Street))) *@
-@*                         { *@
-@*                             <li>@error</li> *@
-@*                         } *@
-@*                     </ul> *@
-@*                 } *@
-    </p>
-
-    <p>
-        <label for="city">City:</label>
-        <input id="city" bind="@State.Basket.Customer.City" />
-@*         @if(State.Basket.Customer *@
-@*                     .GetErrors(nameof(Customer.City)) *@
-@*                     .Any()) *@
-@*                 { *@
-@*                     <ul class="validation-error"> *@
-@*                         @foreach (string error in State.Basket.Customer.GetErrors(nameof(Customer.City))) *@
-@*                         { *@
-@*                             <li>@error</li> *@
-@*                         } *@
-@*                     </ul> *@
-@*                 } *@
-    </p>
-
-    <button onclick="@PlaceOrder" disabled="@State.Basket.Customer.HasErrors">Checkout</button>
-
-</fieldset>
+<CustomerEntry Title="Please enter your details below"
+               Customer="@State.Basket.Customer"
+               Submit="@( (_) => PlaceOrder())" />
 <!-- end Customer Entry-->
 
 @* <p>@State.ToJson()</p> *@
@@ -91,24 +25,6 @@
 
 @functions
 {
-    
-    public DismissableAlert dismissableAlert;
-        public bool ShowAlert { get; set; } = true;
-        
-        public void ToggleAlert()
-        {
-            ShowAlert = !ShowAlert;
-        }
-        public void DismissAlert()
-        {
-            dismissableAlert.Dismiss();
-            StateHasChanged();
-        }
-    
-    
-    
-    
-    
     private State State { get; } = new State
     {
         Menu = new Menu
@@ -121,15 +37,12 @@
             }
         }
     };
-
-    private string SpicinessImage(Spiciness spiciness) =>
-        $"images/{spiciness.ToString().ToLower()}.png";
-
+    
     private void AddToBasket(Pizza pizza)
     {
         Console.WriteLine($"Added pizza {pizza.Name}");
         State.Basket.Add(pizza.Id);
-        base.StateHasChanged();
+        StateHasChanged();
     }
 
     private void RemoveFromBasket(int pos)
